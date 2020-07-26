@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIView *cellView;
--(void)UpdateUI:(nonnull Video*)video;
+-(void)updateUI:(nonnull Video*)video;
 @end
 
 NS_ASSUME_NONNULL_END

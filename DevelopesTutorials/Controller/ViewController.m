@@ -13,7 +13,7 @@
 #import "VideoVC.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableWiew;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) NSArray *videoList;
 @end
 
@@ -22,8 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableWiew.delegate = self;
-    self.tableWiew.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     [[HTTPService instance] gettutorials:^(NSArray * _Nullable dataArray, NSString * _Nullable errMessage) {
         if (dataArray) {
@@ -34,7 +34,7 @@
                 video.videoTitle = [d objectForKey:@"title"];
                 video.videoDescription = [d objectForKey:@"description"];
                 video.videoIframe = [d objectForKey:@"iframe"];
-                video.thumbnailURL = [d objectForKey:@"thumbnali"];
+                video.thumbnailURL = [d objectForKey:@"thumbnail"];
 
                 [arr addObject:video];
             }
@@ -49,7 +49,7 @@
 
 -(void)updateTableView {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableWiew reloadData];
+        [self.tableView reloadData];
     });
 }
 
@@ -66,12 +66,12 @@
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     Video *video = [self.videoList objectAtIndex:indexPath.row];
     VideoCell *vidCell = (VideoCell*)cell;
-    [vidCell UpdateUI:video];
+    [vidCell updateUI:video];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Video *video = [self.videoList objectAtIndex: indexPath.row];
-    
+    NSLog(@"CLick");
     [self performSegueWithIdentifier:@"videoVC" sender:video];
 }
 
@@ -83,7 +83,7 @@
     return self.videoList.count;
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     VideoVC *vc = (VideoVC*)segue.destinationViewController;
     Video *video = (Video*)sender;
     

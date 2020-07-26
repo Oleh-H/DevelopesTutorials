@@ -28,7 +28,7 @@
     // Configure the view for the selected state
 }
 
--(void)UpdateUI:(nonnull Video *)video {
+-(void)updateUI:(nonnull Video *)video {
     self.titleLabel.text = video.videoTitle;
     self.descriptionLabel.text = video.videoDescription;
     
